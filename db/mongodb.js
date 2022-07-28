@@ -8,7 +8,7 @@ export const mongoDBConnection = () => {
     if (err) {
       console.log('Mongodb connection error')
     } else {
-      console.log('Connected to mongodb correctly')
+      console.log('🗄 Connected to mongodb correctly')
     }
   })
 }
