@@ -20,10 +20,10 @@ equipmentsRoutes
   })
   .put('/:id', (req, res) => {
     Equipments.findOneAndUpdate(req.params.id, req.body)
-      .then(() => res.status(204))
+      .then(() => res.sendStatus(204))
   })
   .delete('/:id', (req, res) => {
     Equipments.findOneAndDelete(req.params.id)
       .exec()
-      .then(() => res.status(204))
+      .then(() => res.sendStatus(204))
   })

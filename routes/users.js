@@ -35,10 +35,10 @@ usersRoutes
   })
   .put('/:id', isAdmin, (req, res) => {
     Users.findOneAndUpdate(req.params.id, req.body)
-      .then(() => res.status(204))
+      .then(() => res.sendStatus(204))
   })
   .delete('/:id', isAdmin, (req, res) => {
     Users.findOneAndDelete(req.params.id)
       .exec()
-      .then(() => res.status(204))
+      .then(() => res.sendStatus(204))
   })
