@@ -1,5 +1,7 @@
 import { Router } from 'express'
 import { Users } from '../models/Users.js'
+import bcrypt from 'bcrypt'
+import { isAdmin } from '../middlewares/auth.js'
 
 export const usersRoutes = Router()
 
@@ -14,15 +16,28 @@ usersRoutes
       .exec()
       .then(data => res.status(200).send(data))
   })
-  .post('/', (req, res) => {
-    Users.create(req.body)
+  .post('/', isAdmin, async (req, res) => {
+    const { body } = req
+    const { name, surname, nif, email, password, role } = body
+    const passwordHash = await bcrypt.hash(password, 10)
+
+    const user = new Users({
+      name,
+      surname,
+      email,
+      nif,
+      password: passwordHash,
+      role
+    })
+
+    Users.create(user)
       .then(data => res.status(201).send(data))
   })
-  .put('/:id', (req, res) => {
+  .put('/:id', isAdmin, (req, res) => {
     Users.findOneAndUpdate(req.params.id, req.body)
       .then(() => res.status(204))
   })
-  .delete('/:id', (req, res) => {
+  .delete('/:id', isAdmin, (req, res) => {
     Users.findOneAndDelete(req.params.id)
       .exec()
       .then(() => res.status(204))
