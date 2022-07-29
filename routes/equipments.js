@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import { Equipments } from '../models/Equipments.js'
 
-export const equipmentRoutes = Router()
+export const equipmentsRoutes = Router()
 
-equipmentRoutes
+equipmentsRoutes
   .get('/', (req, res) => {
     Equipments.find()
       .exec()
