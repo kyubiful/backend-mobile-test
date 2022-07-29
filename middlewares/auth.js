@@ -3,7 +3,7 @@ import 'dotenv/config'
 import { Users } from '../models/Users.js'
 
 export const isAuthenticated = (req, res, next) => {
-  const token = req.headers.authorization
+  const token = req.headers.authorization.split(' ')[1]
 
   if (!token) {
     return res.sendStatus(403)
